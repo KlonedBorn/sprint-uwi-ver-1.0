@@ -13,7 +13,8 @@
             "args": [
                 "-f=September 2022 -  Semester 1 Timetable.xlsx",
                 "-l=ECON2000,ECON2002,ECON2025,FINA2004,ACCT2019",
-                "-u"
+                "-u",
+                "-h"
             ]
         },
         {
@@ -21,7 +22,11 @@
             "name": "Launch App",
             "request": "launch",
             "mainClass": "sprint.App",
-            "projectName": "sprint"
+            "projectName": "sprint",
+            "args": [
+                "-f=September 2022 -  Semester 1 Timetable.xlsx",
+                "-l=ECON2000,ECON2002,ECON2025,FINA2004,ACCT2019"
+            ]
         }
     ]
 }
