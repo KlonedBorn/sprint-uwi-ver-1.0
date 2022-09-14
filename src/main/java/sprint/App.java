@@ -59,44 +59,39 @@ public class App
         List<String> courseCodes=Arrays.asList("Nothing");
         for( OptionSpec<?> opt : optMap.keySet() ) {
             String optstring = opt.toString();
-            switch(optstring){
-                case "[f]" : case "[file]" : {
-                    excelFilePath = (String)optMap.get(opt).get(0);
-                } break;
-                case "[s]" : case "[sheet]" : {
-                    excelSheetName = (String)optMap.get(opt).get(0);
-                } break;
-                case "[u]" : case "[show]" : {
-                    if( !optset.hasArgument(opt) ) continue;
-                    bShowFaculty = true;
-                } break;
-                case "[h]" : case "[help]" : {
-                    if( !optset.hasArgument(opt) ) continue;
-                    try {
-                        FileInputStream helpFileStream = new FileInputStream( new File("src\\main\\java\\sprint\\help.txt") );   
-                        Scanner fsc = new Scanner(helpFileStream);
-                        while(fsc.hasNextLine()){
-                            System.out.println(fsc.nextLine());
-                        }
-                        helpFileStream.close();
-                        fsc.close();
-                    } catch (IOException fe) {
-                        System.err.println("ERROR: help documentation could not be loaded");
-                        System.exit(-1);
-                    }
-                } break;
-                case "[l]" : case "[list]" : {
-                    if( !optset.hasArgument(opt) ) continue;
-                    String codes[] = ((String)optMap.get(opt).get(0)).split(",");
-                    courseCodes = Arrays.asList(codes);
-                } break;
-                case "[e]" : {
-                    exportFilePath = (String)optMap.get(opt).get(0);
-                } break;
-                case "[v]" : {
-                    bVerbose = (Boolean)optMap.get(opt).get(0);
-                } break;
+            try {
+                switch(optstring){
+                    case "[f]" : case "[file]" : {
+                        excelFilePath = (String)optMap.get(opt).get(0);
+                    } break;
+                    case "[s]" : case "[sheet]" : {
+                        excelSheetName = (String)optMap.get(opt).get(0);
+                    } break;
+                    case "[u]" : case "[show]" : {
+                        if( !optset.hasArgument(opt) ) continue;
+                        bShowFaculty = true;
+                    } break;
+                    case "[h]" : case "[help]" : {
+                        if( !optset.hasArgument(opt) ) continue;
+                        printHelpText();
+                    } break;
+                    case "[l]" : case "[list]" : {
+                        if( !optset.hasArgument(opt) ) continue;
+                        String codes[] = ((String)optMap.get(opt).get(0)).split(",");
+                        courseCodes = Arrays.asList(codes);
+                    } break;
+                    case "[e]" : {
+                        exportFilePath = (String)optMap.get(opt).get(0);
+                    } break;
+                    case "[v]" : {
+                        bVerbose = (Boolean)optMap.get(opt).get(0);
+                    } break;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                printHelpText();
             }
+
         }
         ArrayList<Course> courseList = new ArrayList<>();
         String coursePattern = courseCodes.stream().collect(Collectors.joining("|"));
@@ -161,6 +156,20 @@ public class App
                         courseOut.println(line);
                 }
             }
+        }
+    }
+    static public void printHelpText(){
+        try {
+            FileInputStream helpFileStream = new FileInputStream( new File("src\\main\\java\\sprint\\help.txt") );   
+            Scanner fsc = new Scanner(helpFileStream);
+            while(fsc.hasNextLine()){
+                System.out.println(fsc.nextLine());
+            }
+            helpFileStream.close();
+            fsc.close();
+        } catch (IOException fe) {
+            System.err.println("ERROR: help documentation could not be loaded");
+            System.exit(-1);
         }
     }
     static public int getWeekDay(String d){

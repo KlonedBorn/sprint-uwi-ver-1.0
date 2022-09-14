@@ -21,6 +21,5 @@ usage: Sprint reads a .xlsx file containing the date, faculty & time for each co
 
         -v, --verbose print filtered courses to console.
             e.g. -v
-            
 N.B long options may not be working at the moment. 9/2022
 Apache License, Version 2.0, Copyright 2022 Kyle King
