@@ -1,8 +1,6 @@
 package sprint;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,6 +47,8 @@ public class App
                 accepts("list").withOptionalArg().ofType(String.class);
                 accepts("show");
                 accepts("help");
+                accepts("export");
+                accepts("verbose");
                 */
             }
         };
@@ -139,11 +139,9 @@ public class App
         try {
             if(exportFilePath != "NO_FILE") courseOut = new PrintStream(new File(exportFilePath));
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             courseOut = null;
         }
-
         for(int wd = 0 ; wd < weekdays.length ; wd++) {
             boolean bHeadWritten = false;
             for( Course c : courseList ) {
